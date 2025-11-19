@@ -1,29 +1,45 @@
 package services;
 
 import entities.Produto;
-import repositories.ProdutoRepository;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoService implements IService<Produto> {
-    private ProdutoRepository repo = new ProdutoRepository();
+public class ProdutoService {
+    private List<Produto> produtos = new ArrayList<>();
 
-    @Override
-    public void cadastrar(Produto obj) {
-        repo.adicionar(obj);
+    public void cadastrar(Produto produto) {
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto não pode ser null!");
+        }
+        produtos.add(produto);
     }
 
-    @Override
     public void remover(int index) {
-        repo.remover(index);
+        if (index < 0 || index >= produtos.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para remoção!");
+        }
+        produtos.remove(index);
     }
 
-    @Override
-    public void alterar(int index, Produto obj) {
-        repo.atualizar(index, obj);
+    public void atualizar(int index, Produto produto) {
+        if (index < 0 || index >= produtos.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para atualização!");
+        }
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto não pode ser null!");
+        }
+        produtos.set(index, produto);
     }
 
-    @Override
     public List<Produto> listarTodos() {
-        return repo.listar();
+        return new ArrayList<>(produtos);
+    }
+    
+    public int contarProdutos() {
+        return produtos.size();
+    }
+    
+    public boolean isVazio() {
+        return produtos.isEmpty();
     }
 }

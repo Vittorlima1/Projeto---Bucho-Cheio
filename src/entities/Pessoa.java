@@ -15,6 +15,12 @@ public abstract class Pessoa {
         this.idade = 0;
     }
 
+    // Construtor padrão
+    public Pessoa() {
+        this.nome = "Nome não definido";
+        this.idade = 0;
+    }
+
     // Método abstrato
     public abstract void exibirInfo();
 

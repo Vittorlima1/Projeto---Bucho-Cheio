@@ -8,6 +8,18 @@ public class Cliente extends Pessoa {
         this.email = email;
     }
 
+    // Construtor só com nome
+    public Cliente(String nome) {
+        super(nome);
+        this.email = "email@exemplo.com";
+    }
+
+    // Construtor padrão
+    public Cliente() {
+        super();
+        this.email = "email@exemplo.com";
+    }
+
     @Override
     public void exibirInfo() {
         System.out.println("Cliente: " + nome + " (" + idade + " anos) - Email: " + email);

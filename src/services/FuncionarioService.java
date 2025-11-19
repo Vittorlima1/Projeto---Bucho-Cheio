@@ -1,29 +1,45 @@
 package services;
 
 import entities.Funcionario;
-import repositories.FuncionarioRepository;
+import java.util.ArrayList;
 import java.util.List;
 
-public class FuncionarioService implements IService<Funcionario> {
-    private FuncionarioRepository repo = new FuncionarioRepository();
+public class FuncionarioService {
+    private List<Funcionario> funcionarios = new ArrayList<>();
 
-    @Override
-    public void cadastrar(Funcionario obj) {
-        repo.adicionar(obj);
+    public void cadastrar(Funcionario funcionario) {
+        if (funcionario == null) {
+            throw new IllegalArgumentException("Funcionário não pode ser null!");
+        }
+        funcionarios.add(funcionario);
     }
 
-    @Override
     public void remover(int index) {
-        repo.remover(index);
+        if (index < 0 || index >= funcionarios.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para remoção!");
+        }
+        funcionarios.remove(index);
     }
 
-    @Override
-    public void alterar(int index, Funcionario obj) {
-        repo.atualizar(index, obj);
+    public void atualizar(int index, Funcionario funcionario) {
+        if (index < 0 || index >= funcionarios.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para atualização!");
+        }
+        if (funcionario == null) {
+            throw new IllegalArgumentException("Funcionário não pode ser null!");
+        }
+        funcionarios.set(index, funcionario);
     }
 
-    @Override
     public List<Funcionario> listarTodos() {
-        return repo.listar();
+        return new ArrayList<>(funcionarios);
+    }
+    
+    public int contarFuncionarios() {
+        return funcionarios.size();
+    }
+    
+    public boolean isVazio() {
+        return funcionarios.isEmpty();
     }
 }

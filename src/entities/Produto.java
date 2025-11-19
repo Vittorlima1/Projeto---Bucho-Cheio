@@ -15,6 +15,12 @@ public class Produto {
         this.preco = 0.0;
     }
 
+    // Construtor padrão
+    public Produto() {
+        this.nome = "Produto não definido";
+        this.preco = 0.0;
+    }
+
     public void exibirInfo() {
         System.out.println("Produto: " + nome + " - R$ " + preco);
     }

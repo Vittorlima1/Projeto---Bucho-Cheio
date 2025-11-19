@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Pedido {
+ public class Pedido {
     private Cliente cliente;
     
     // ArrayList que armazena todos os produtos do pedido
@@ -20,6 +20,21 @@ public class Pedido {
             throw new IllegalArgumentException("Cliente não pode ser null!");
         }
         this.cliente = cliente;
+        this.dataHora = LocalDateTime.now();
+    }
+
+    // Construtor com cliente e data/hora específica
+    public Pedido(Cliente cliente, LocalDateTime dataHora) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("Cliente não pode ser null!");
+        }
+        this.cliente = cliente;
+        this.dataHora = dataHora != null ? dataHora : LocalDateTime.now();
+    }
+
+    // Construtor padrão (cria cliente padrão)
+    public Pedido() {
+        this.cliente = new Cliente(); // Usa o construtor padrão do Cliente
         this.dataHora = LocalDateTime.now();
     }
 

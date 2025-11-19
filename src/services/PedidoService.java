@@ -1,29 +1,45 @@
 package services;
 
 import entities.Pedido;
-import repositories.PedidoRepository;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PedidoService implements IService<Pedido> {
-    private PedidoRepository repo = new PedidoRepository();
+public class PedidoService {
+    private List<Pedido> pedidos = new ArrayList<>();
 
-    @Override
-    public void cadastrar(Pedido obj) {
-        repo.adicionar(obj);
+    public void cadastrar(Pedido pedido) {
+        if (pedido == null) {
+            throw new IllegalArgumentException("Pedido não pode ser null!");
+        }
+        pedidos.add(pedido);
     }
 
-    @Override
     public void remover(int index) {
-        repo.remover(index);
+        if (index < 0 || index >= pedidos.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para remoção!");
+        }
+        pedidos.remove(index);
     }
 
-    @Override
-    public void alterar(int index, Pedido obj) {
-        repo.atualizar(index, obj);
+    public void atualizar(int index, Pedido pedido) {
+        if (index < 0 || index >= pedidos.size()) {
+            throw new IndexOutOfBoundsException("Índice inválido para atualização!");
+        }
+        if (pedido == null) {
+            throw new IllegalArgumentException("Pedido não pode ser null!");
+        }
+        pedidos.set(index, pedido);
     }
 
-    @Override
     public List<Pedido> listarTodos() {
-        return repo.listar();
+        return new ArrayList<>(pedidos);
+    }
+    
+    public int contarPedidos() {
+        return pedidos.size();
+    }
+    
+    public boolean isVazio() {
+        return pedidos.isEmpty();
     }
 }
